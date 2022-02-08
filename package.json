@@ -1,0 +1,26 @@
+{
+  "name": "shippingmanagementsystem",
+  "version": "1.0.0",
+  "description": "Shipping management system",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YassineAitBelkouhia/shippingManagementSysteme.git"
+  },
+  "author": "D.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/YassineAitBelkouhia/shippingManagementSysteme/issues"
+  },
+  "homepage": "https://github.com/YassineAitBelkouhia/shippingManagementSysteme#readme",
+  "dependencies": {
+    "express": "^4.17.2",
+    "http-status-codes": "^2.2.0",
+    "method-override": "^3.0.0",
+    "mongoose": "^6.2.0"
+  }
+}
