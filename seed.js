@@ -8,33 +8,35 @@ mongoose.connect("mongodb://localhost:27017/morrocoShip", {
   useNewUrlParser: true,
 });
 
+//Use native promises
+mongoose.Promise = global.Promise;
 mongoose.connection;
 
 let drivers = [
   {
     name: {
-      first: "Yassine",
-      last: "Ait Belkouhia",
+      first: "Driver",
+      last: "One",
     },
-    email: "yassine.ait.belkouhia@gmail.com",
+    email: "driver.one@gmail.com",
     password: "unhashedPassword01",
     vehicule: "small truck",
   },
   {
     name: {
-      first: "Nadia",
-      last: "Ait Belkouhia",
+      first: "Driver",
+      last: "Two",
     },
-    email: "nadia.ait.belkouhia@gmail.com",
+    email: "driver.two@gmail.com",
     password: "unhashedPassword01",
     vehicule: "car",
   },
   {
     name: {
-      first: "zineb",
-      last: "Ait Belkouhia",
+      first: "Driver",
+      last: "three",
     },
-    email: "zineb.ait.belkouhia@gmail.com",
+    email: "driver.three@gmail.com",
     password: "unhashedPassword01",
     vehicule: "big truck",
   },

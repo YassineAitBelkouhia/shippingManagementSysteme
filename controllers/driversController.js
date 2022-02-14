@@ -27,15 +27,27 @@ module.exports = {
   },
 
   create: (req, res) => {
-    console.log(req.body);
     let driverParams = getDriverParams(req.body);
     Driver.create(driverParams)
       .then((driver) => {
-        console.log(driver);
-        res.send(driver);
+        req.flash(
+          "success",
+          `Driver ${driver.name.first} ${driver.name.last} account created successfully`
+        );
+        let message = res.locals.flashMessages.success;
+        console.log(message);
+
+        res.send({ driver, message });
       })
       .catch((error) => {
         console.log(`Error saving driver: ${error.message}`);
+        req.flash(
+          "error",
+          `Failed to create account because: ${error.message}`
+        );
+        let message = res.locals.flashMessages.error;
+        console.log(message);
+        res.send(message);
       });
   },
 

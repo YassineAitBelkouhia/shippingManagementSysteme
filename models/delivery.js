@@ -8,7 +8,7 @@ const mongoose = require("mongoose"),
         type: Boolean,
         required: true,
       },
-      isRetrived: {
+      isRetrieved: {
         type: Boolean,
         default: false,
       },
