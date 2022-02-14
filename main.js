@@ -23,7 +23,7 @@ mongoose.connect("mongodb://localhost:27017/morrocoShip", {
   useNewUrlParser: true,
 });
 
-//Assigne the database to the db' variable
+//Assigne the database connection to the db variable
 const db = mongoose.connection;
 
 //Log a message when the application connects to the database

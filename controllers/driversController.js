@@ -34,7 +34,7 @@ module.exports = {
           "success",
           `Driver ${driver.name.first} ${driver.name.last} account created successfully`
         );
-        let message = res.locals.flashMessages.success;
+        let message = req.flash("success");
         console.log(message);
 
         res.send({ driver, message });
@@ -45,7 +45,7 @@ module.exports = {
           "error",
           `Failed to create account because: ${error.message}`
         );
-        let message = res.locals.flashMessages.error;
+        let message = req.flash("error");
         console.log(message);
         res.send(message);
       });
