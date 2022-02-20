@@ -65,10 +65,6 @@ app.use(
   })
 );
 
-router.get("/likan/:name", (req, res) => {
-  let name = req.params.name;
-  res.send(name);
-});
 router.get("/drivers/:id/deliveries", driversController.getDeliveries);
 router.get("/drivers", driversController.getAllDrivers);
 router.post("/drivers/login", driversController.login);
