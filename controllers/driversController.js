@@ -1,6 +1,7 @@
 "Use Strict";
 
 const Driver = require("../models/driver"),
+  Delivery = require("../models/delivery"),
   getDriverParams = (body) => {
     return {
       name: {
@@ -88,7 +89,7 @@ module.exports = {
     Driver.findOne({ _id: driverId })
       .exec()
       .then((driver) => {
-        driver.claimDelevery(deliveryId);
+        driver.claimDelivery(deliveryId);
         res.send("Delivery Claimed");
       })
       .catch((error) => {
@@ -119,17 +120,40 @@ module.exports = {
 
   getDeliveries: (req, res) => {
     let driverId = req.params.id;
+    console.log(driverId);
 
     Driver.findOne({ _id: driverId })
       .exec()
       .then((driver) => {
-        res.send(driver.getCorrespondingDeliveries());
+        Delivery.find({
+          correspondingVehicule: driver.vehicule,
+          isClaimed: false,
+        })
+          .exec()
+          .then((deliveries) => {
+            res.send(deliveries);
+          })
+          .catch((error) => {
+            res.send(error);
+          });
       })
       .catch((error) => {
         console.log(`ERROR: ${error.message}`);
       })
       .then(() => {
         console.log("Deliveries fetched");
+      });
+  },
+
+  login: (req, res) => {
+    let driverEmail = req.body.email;
+    Driver.findOne({ email: driverEmail })
+      .exec()
+      .then((driver) => {
+        res.send(driver);
+      })
+      .catch((error) => {
+        res.send("error");
       });
   },
 };

@@ -46,7 +46,7 @@ driverSchema.methods.getCorrespondingDeliveries = function () {
   })
     .exec()
     .then((deliveries) => {
-      console.log(deliveries);
+      // console.log(deliveries);
       return deliveries;
     })
     .catch((error) => {
@@ -66,6 +66,7 @@ driverSchema.methods.claimDelivery = function (id) {
     .then((delivery) => {
       delivery.isClaimed = true;
       driver.delivery = delivery._id;
+      driver.save();
       console.log(delivery);
     })
     .catch((error) => {
@@ -81,14 +82,17 @@ driverSchema.methods.deliveryRetrieved = function (id) {
   Delivery.findByIdAndUpdate(id, { $set: { isRetrieved: true } })
     .exec()
     .then((delivery) => {
+      delivery.isRetrieved = true;
+      delivery.save();
       console.log(delivery);
       driver.delivery = undefined;
+      driver.save();
     })
     .catch((error) => {
       console.log(`Error : ${error.message}`);
     })
     .then(() => {
-      console.log("Shipping Retrieved");
+      console.log("Delivery Retrieved");
     });
 };
 

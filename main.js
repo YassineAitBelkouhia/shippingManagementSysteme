@@ -10,6 +10,7 @@ const express = require("express"),
   expressSession = require("express-session"),
   cookieParser = require("cookie-parser"),
   connectFlash = require("connect-flash"),
+  cors = require("cors"),
   adminController = require("./controllers/adminController"),
   driversController = require("./controllers/driversController"),
   deliveriesController = require("./controllers/deliveriesController"),
@@ -36,7 +37,7 @@ app.use(
     extended: false,
   })
 );
-app.set("port", process.env.PORT || 3000);
+app.set("port", process.env.PORT || 5000);
 router.use(express.json());
 
 //Configure express app to use cookie-parser as middleware,and for express-session to use cookie-parser and use connect fash as middleware
@@ -58,21 +59,32 @@ router.use((req, res, next) => {
   next();
 });
 
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+  })
+);
+
+router.get("/likan/:name", (req, res) => {
+  let name = req.params.name;
+  res.send(name);
+});
+router.get("/drivers/:id/deliveries", driversController.getDeliveries);
 router.get("/drivers", driversController.getAllDrivers);
+router.post("/drivers/login", driversController.login);
 router.post("/drivers/create", driversController.create);
 router.put("/drivers/:id/update", driversController.update);
 router.delete("/drivers/:id/delete", driversController.delete);
-router.get("drivers/:driverId/claim/:deliveryId", driversController.claim);
+router.get("/drivers/:driverId/claim/:deliveryId", driversController.claim);
 router.get(
-  "drivers/:driverId/retrieved/:deliveryId",
+  "/drivers/:driverId/retrieved/:deliveryId",
   driversController.retrieved
 );
-router.get("drivers/:id/deliveries", driversController.getDeliveries);
 
-router.get("deliveries", deliveriesController.getAllDeliveries);
-router.delete("deliveries/:id/delete", deliveriesController.delete);
-router.put("deliveries/:id/update", deliveriesController.update);
-router.post("deliveries/create", deliveriesController.create);
+router.get("/deliveries", deliveriesController.getAllDeliveries);
+router.delete("/deliveries/:id/delete", deliveriesController.delete);
+router.put("/deliveries/:id/update", deliveriesController.update);
+router.post("/deliveries/create", deliveriesController.create);
 
 router.use(errorController.logErrors);
 router.use(errorController.respondNoResourceFound);
